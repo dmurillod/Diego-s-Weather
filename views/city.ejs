@@ -1,12 +1,124 @@
+<%
+  const mainWeather = content.weather[0].main.toLowerCase();
+  let backgroundClass = '';
+
+  if (mainWeather === 'clear') {
+    backgroundClass = 'bg-clear';
+  } else if (mainWeather === 'clouds') {
+    backgroundClass = 'bg-clouds';
+  } else if (mainWeather === 'rain') {
+    backgroundClass = 'bg-rain';
+  } else if (mainWeather === 'thunderstorm') {
+    backgroundClass = 'bg-thunderstorm';
+  } else {
+    backgroundClass = 'bg-default';
+  }
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diego´s Weather</title>
+    <title>Diego's Weather</title>
+    <link rel="stylesheet" href="/styles/main.css">
 </head>
-<body>
-    <h1>The Weather in <%= content.data["name"] %>, <%= location.data[0].country %> is:</h1>
-    <h2><%= content.data.main['temp'] %></h2>   
+<body class="<%= backgroundClass %>">
+    <img src="/images/img-cloud.png" class="cloud-left" alt="imagen nube">
+    <img src="/images/img-cloud.png" class="cloud-right" alt="imagen nube">
+    <img src="/images/img-cloud.png" class="cloud-left" alt="imagen nube">
+    <img src="/images/img-cloud.png" class="cloud-right" alt="imagen nube">
+            
+    <div class="container-info">
+        <div class="title-2">
+            <%= currentDate %>
+        </div>
+        <div class="container-main-info">
+            <div class="card first">
+                <p class="title-city"><%= content.name %>, <%= content.sys.country %></p>
+                <p class="title-weather"><%= content.main.temp %>°C</p>   
+            </div>
+            <div class="card second"> 
+                <img src="http://openweathermap.org/img/wn/<%= content.weather[0].icon %>@2x.png" height="120px" alt="weather icon" >
+                <div class="container-description-weather">
+                    <p class="description-weather"><%= content.weather[0].description %></p>
+                    <p class="description-feel"> "Feels like <%= content.main.feels_like %>"</p>
+                </div>
+            </div>
+            <div class="card third">
+                <p class="feature">Temperature min: <%= content.main.temp_min %>°C</p>
+                <p class="feature">Temperature max: <%= content.main.temp_max %>°C</p>
+                <p class="feature">Humidity: <%= content.main.humidity %>%</p>
+                <p class="feature">Speed Wind: <%= content.wind.speed %> km/h</p>
+            </div>
+        </div>   
+        <div class="container-forecastify">
+            <div class="card second">
+                <div class="container-description-weather1">
+                    <p class="description-weather1"><%= forecast.list[0].dt_txt %></p>
+                </div>
+                <img src="http://openweathermap.org/img/wn/<%= forecast.list[0].weather[0].icon %>@2x.png" height="120px" alt="weather icon">
+                <div class="container-description-weather1">
+                    <p class="description-weather2"><%= forecast.list[0].main.temp %>°C</p>
+                </div>
+            </div>
+            <div class="card second">
+                <div class="container-description-weather1">
+                    <p class="description-weather1"><%= forecast.list[1].dt_txt %></p>
+                </div>
+                <img src="http://openweathermap.org/img/wn/<%= forecast.list[1].weather[0].icon %>@2x.png" height="120px" alt="weather icon">
+                <div class="container-description-weather1">
+                    <p class="description-weather2"><%= forecast.list[1].main.temp %>°C</p>
+                </div>
+            </div>
+            <div class="card second">
+                <div class="container-description-weather1">
+                    <p class="description-weather1"><%= forecast.list[2].dt_txt %></p>
+                </div>
+                <img src="http://openweathermap.org/img/wn/<%= forecast.list[2].weather[0].icon %>@2x.png" height="120px" alt="weather icon">
+                <div class="container-description-weather1">
+                    <p class="description-weather2"><%= forecast.list[2].main.temp %>°C</p>
+                </div>
+            </div>
+            <div class="card second">
+                <div class="container-description-weather1">
+                    <p class="description-weather1"><%= forecast.list[3].dt_txt %></p>
+                </div>
+                <img src="http://openweathermap.org/img/wn/<%= forecast.list[3].weather[0].icon %>@2x.png" height="120px" alt="weather icon">
+                <div class="container-description-weather1">
+                    <p class="description-weather2"><%= forecast.list[3].main.temp %>°C</p>
+                </div>
+            </div>
+        </div>
+        <a href="/">
+        <button class="button">
+            <div class="text">
+            <span>Search</span>
+            <span>other</span>
+            <span>City</span>
+            <span></span>
+            </div>
+            <div class="clone">
+            <span>Search</span>
+            <span>other</span>
+            <span>City</span>
+            </div>
+            <svg
+            stroke-width="2"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            fill="none"
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            width="20px"
+            >
+            <path
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+            ></path>
+            </svg>
+        </button>
+        </a>
+    </div>
 </body>
 </html>
