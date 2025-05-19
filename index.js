@@ -118,18 +118,10 @@ app.post('/submit', async (req, res)=>{
     const city = req.body['name-city'];
     const location = await getcoordinates(city);
     const latitud = location.data[0].lat;
-    console.log(latitud);
     const longitud = location.data[0].lon;
-    console.log(longitud);
     const content = await getweather(latitud, longitud);
-    console.log(content.data);
     const forecast = await getforecastify(latitud, longitud);
-    console.log(forecast.data.list[0].weather[0].icon);
     const currentDate = getCurrentDate();
-    const drops = Array.from({ length: 100 }, () => ({
-        left: (Math.random() * 100).toFixed(2),
-        delay: (Math.random() * 2).toFixed(2),
-      }));
     res.render("city.ejs", { content : content.data , forecast : forecast.data, currentDate : currentDate, drops: drops});
 });
 
