@@ -58,7 +58,6 @@ function getCurrentDate() {
 async function getcoordinates(city){
     try{
         const response = await axios.get("http://api.openweathermap.org/geo/1.0/" + `direct?q=${city}&limit=1&appid=${API_KEY}`);
-        console.log(response.data[0].country);
         return response;
     } catch(error){
         console.log(error.response.data);
@@ -122,7 +121,7 @@ app.post('/submit', async (req, res)=>{
     const content = await getweather(latitud, longitud);
     const forecast = await getforecastify(latitud, longitud);
     const currentDate = getCurrentDate();
-    res.render("city.ejs", { content : content.data , forecast : forecast.data, currentDate : currentDate, drops: drops});
+    res.render("city.ejs", { content : content.data , forecast : forecast.data, currentDate : currentDate});
 });
 
 app.listen(port,()=>{
